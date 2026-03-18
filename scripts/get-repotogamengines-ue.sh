@@ -29,7 +29,7 @@ ask_yn() {
         hint="s [si] / N [no]"
     fi
     while true; do
-        read -rp "$(echo -e "${CYAN}?${NC}") $prompt ($hint): " ans
+        read -rp "$(echo -e "${CYAN}?${NC}") $prompt ($hint): " ans </dev/tty
         ans="${ans:-$default}"
         case "${ans,,}" in
             s|si) return 0 ;;
@@ -43,7 +43,7 @@ ask_input() {
     local prompt="$1" default="${2:-}"
     local display_default=""
     [[ -n "$default" ]] && display_default=" [${default}]"
-    read -rp "$(echo -e "${CYAN}?${NC}") ${prompt}${display_default}: " ans
+    read -rp "$(echo -e "${CYAN}?${NC}") ${prompt}${display_default}: " ans </dev/tty
     echo "${ans:-$default}"
 }
 
@@ -63,7 +63,7 @@ ask_choice() {
         fi
     done
     while true; do
-        read -rp "$(echo -e "${CYAN}?${NC}") Selecciona (1-${#options[@]}) [${default_idx}]: " ans
+        read -rp "$(echo -e "${CYAN}?${NC}") Selecciona (1-${#options[@]}) [${default_idx}]: " ans </dev/tty
         ans="${ans:-$default_idx}"
         if [[ "$ans" =~ ^[0-9]+$ ]] && (( ans >= 1 && ans <= ${#options[@]} )); then
             return $((ans - 1))
@@ -536,7 +536,7 @@ phase5_ue_project() {
     fi
 
     echo ""
-    read -rp "$(echo -e "${CYAN}?${NC}") Presiona ENTER cuando hayas creado el proyecto..."
+    read -rp "$(echo -e "${CYAN}?${NC}") Presiona ENTER cuando hayas creado el proyecto..." </dev/tty
 
     # Buscar .uproject en el directorio de trabajo
     cd "$root"
